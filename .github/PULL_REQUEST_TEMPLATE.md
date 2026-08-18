@@ -1,19 +1,34 @@
-## Summary
+## 📝 Tóm tắt
 
-<!-- What does this PR do and why? -->
+<!-- PR này thay đổi điều gì và vì sao cần thay đổi? -->
 
-## Related Issue
+## 🔗 Issue liên quan
 
-<!-- Link to the issue this addresses, e.g. Closes #123 -->
+<!-- Liên kết issue nếu có, ví dụ: Closes #123 -->
 
-## Type of Change
+## 🧩 Loại thay đổi
 
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation
-- [ ] Refactoring
+- [ ] Sửa lỗi
+- [ ] Tính năng mới
+- [ ] Cải thiện workflow `/clone-website`
+- [ ] Hỗ trợ AI coding agent
+- [ ] Tài liệu / Việt hóa
+- [ ] Refactor
 - [ ] Breaking change
 
-## Checklist
+## 🧪 Kiểm thử
 
-- [ ] `npm run check` passes (lint + typecheck + build)
+<!-- Mô tả cách bạn đã kiểm tra thay đổi. -->
+
+- [ ] `npm run check` chạy thành công (`lint + typecheck + build`)
+- [ ] Tôi đã kiểm tra responsive/UI nếu thay đổi frontend
+- [ ] Tôi đã chạy script đồng bộ nếu sửa `AGENTS.md` hoặc skill nguồn
+
+## 🔐 An toàn và dữ liệu
+
+- [ ] PR không chứa API key, token, cookie, secret hoặc dữ liệu cá nhân
+- [ ] Thay đổi không bổ sung hành vi phishing, giả mạo hoặc truy cập trái phép
+
+## 📷 Ảnh / bằng chứng kiểm thử
+
+<!-- Nếu thay đổi giao diện hoặc visual QA, có thể đính kèm ảnh trước/sau tại đây. -->
