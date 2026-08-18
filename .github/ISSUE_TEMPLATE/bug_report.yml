@@ -1,61 +1,61 @@
-name: Bug Report
-description: Report a bug or unexpected behavior
-title: "[Bug]: "
+name: Báo lỗi
+description: Báo cáo lỗi hoặc hành vi không mong đợi
+title: "[Lỗi]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug! Please fill out the form below so we can reproduce and fix it.
+        Cảm ơn bạn đã dành thời gian báo lỗi. Vui lòng cung cấp đủ thông tin để chúng tôi có thể tái hiện và xử lý vấn đề.
 
   - type: textarea
     id: description
     attributes:
-      label: Description
-      description: A clear description of what the bug is.
-      placeholder: What happened?
+      label: Mô tả lỗi
+      description: Mô tả ngắn gọn và rõ ràng vấn đề bạn gặp phải.
+      placeholder: Điều gì đã xảy ra?
     validations:
       required: true
 
   - type: textarea
     id: reproduction
     attributes:
-      label: Steps to Reproduce
-      description: Step-by-step instructions to reproduce the behavior.
+      label: Các bước tái hiện
+      description: Liệt kê từng bước để tái hiện lỗi.
       placeholder: |
-        1. Run `/clone-website https://example.com`
-        2. Wait for agents to finish
-        3. See error in terminal...
+        1. Chạy `/clone-website https://example.com`
+        2. Chờ agent hoàn tất
+        3. Quan sát lỗi trong terminal...
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: Expected Behavior
-      description: What did you expect to happen?
+      label: Kết quả mong đợi
+      description: Bạn mong hệ thống hoạt động như thế nào?
     validations:
       required: true
 
   - type: textarea
     id: actual
     attributes:
-      label: Actual Behavior
-      description: What actually happened? Include error messages or screenshots if possible.
+      label: Kết quả thực tế
+      description: Điều gì thực sự xảy ra? Hãy đính kèm thông báo lỗi hoặc ảnh chụp nếu có.
     validations:
       required: true
 
   - type: input
     id: target-url
     attributes:
-      label: Target URL
-      description: The website URL you were trying to clone (if applicable).
+      label: URL mục tiêu
+      description: Website bạn đang thử tái dựng, nếu phù hợp. Không gửi URL chứa thông tin nhạy cảm hoặc truy cập riêng tư.
       placeholder: https://example.com
 
   - type: dropdown
     id: os
     attributes:
-      label: Operating System
+      label: Hệ điều hành
       options:
         - macOS
         - Windows
@@ -66,21 +66,21 @@ body:
   - type: input
     id: node-version
     attributes:
-      label: Node.js Version
-      description: Run `node -v` to find this.
+      label: Phiên bản Node.js
+      description: Chạy `node -v` để kiểm tra.
       placeholder: v24.x.x
     validations:
       required: true
 
   - type: input
-    id: claude-code-version
+    id: agent-version
     attributes:
-      label: Claude Code Version
-      description: Run `claude --version` to find this.
-      placeholder: 1.x.x
+      label: AI coding agent và phiên bản
+      description: Ví dụ Claude Code, Codex CLI, Cursor, Gemini CLI... kèm phiên bản nếu có.
+      placeholder: Claude Code 1.x.x
 
   - type: textarea
     id: additional
     attributes:
-      label: Additional Context
-      description: Any other context, logs, or screenshots.
+      label: Thông tin bổ sung
+      description: Log, ảnh chụp, video hoặc ngữ cảnh khác. Hãy xóa token, cookie, secret và dữ liệu cá nhân trước khi gửi.
