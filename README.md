@@ -1,214 +1,391 @@
 <div align="center">
 
-# AI Website Cloner Template
+# 🧭 ViClone Website
 
-### Clone any website with one command
+### Sao chép cấu trúc và giao diện website bằng AI, tái dựng thành ứng dụng Next.js sạch và hiện đại
 
-Give your AI coding agent a URL and watch it recreate the website as a clean Next.js app.
+Chỉ cần cung cấp URL cho AI coding agent, workflow `/clone-website` sẽ khảo sát giao diện, trích xuất tài nguyên, phân tích CSS/interaction và tổ chức lại thành mã nguồn Next.js có thể tiếp tục phát triển.
 
-**Best results with [Claude Code](https://docs.anthropic.com/en/docs/claude-code) + Opus 5. Works with Codex, Cursor, Gemini, and more.**
+[![Dùng mẫu này](https://img.shields.io/badge/Dùng_mẫu_này-Tạo_repo_mới-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Base27-CVNSS/viclone-website/generate)
+[![MIT License](https://img.shields.io/badge/Giấy_phép-MIT-blue?style=for-the-badge)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
 
-[![Use this template](https://img.shields.io/badge/Use_this_template-Create_your_copy-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JCodesMore/ai-website-cloner-template/generate) [![Discord](https://img.shields.io/badge/Join_the_community-Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/hrTSX5yTpB)
+**Bản Việt hóa của [JCodesMore/ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template).**  
+Giữ nguyên giấy phép MIT và thông tin bản quyền của tác giả gốc.
 
-[Quick Start](#quick-start) · [Watch Demo](#demo) · [Supported Platforms](#supported-platforms)
-
-<a href="https://github.com/JCodesMore/ai-website-cloner-template/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a> <a href="https://github.com/JCodesMore/ai-website-cloner-template"><img src="https://img.shields.io/github/stars/JCodesMore/ai-website-cloner-template?style=flat" alt="Stars" /></a> <img src="https://img.shields.io/endpoint?url=https://gittokens.rsamf.com/badge/JCodesMore/ai-website-cloner-template" alt="tokens" />
-
-  <a href="https://trendshift.io/repositories/24302?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-24302" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/24302" alt="JCodesMore%2Fai-website-cloner-template | Trendshift" width="250" height="55" /></a> <a href="https://www.star-history.com/jcodesmore/ai-website-cloner-template/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=JCodesMore/ai-website-cloner-template&amp;theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=JCodesMore/ai-website-cloner-template" /><img alt="Star History Global Rank" src="https://api.star-history.com/badge?repo=JCodesMore/ai-website-cloner-template" width="216" height="55" /></picture></a>
-
-<br />
-<sub><strong>SPONSORED BY</strong></sub>
-<br /><br />
-<a href="https://www.rapidproxy.io/?ref=JCM"><img src="docs/assets/sponsors/rapidproxy-banner.png" alt="RapidProxy residential proxy service" width="680" /></a>
-<br />
-<sub>Power your scraping and automation with 90M+ residential IPs, 500MB free traffic, and non-expiring bandwidth. <a href="https://www.rapidproxy.io/?ref=JCM">Explore RapidProxy →</a></sub>
-<br /><br />
-<a href="https://www.atlascloud.ai/?utm_source=github&amp;utm_medium=sponsor&amp;utm_campaign=ai-website-cloner-template">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/sponsors/atlas-cloud-logo-white.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/sponsors/atlas-cloud-logo.svg" />
-    <img src="docs/assets/sponsors/atlas-cloud-logo.svg" alt="Atlas Cloud" width="240" />
-  </picture>
-</a>
-<br />
-<sub>Generate AI images, video, audio, and 3D assets through one API. <a href="https://www.atlascloud.ai/?utm_source=github&amp;utm_medium=sponsor&amp;utm_campaign=ai-website-cloner-template">Explore Atlas Cloud →</a></sub>
+[🚀 Bắt đầu nhanh](#-bắt-đầu-nhanh) · [🧠 Nguyên lý](#-nguyên-lý-hoạt-động) · [🏗️ Kiến trúc](#️-kiến-trúc-workflow) · [🛡️ Sử dụng có trách-nhiệm](#️-sử-dụng-có-trách-nhiệm)
 
 </div>
 
 ---
 
-## Demo
+## 🌐 ViClone Website là gì?
 
-[![Watch the demo](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
+**ViClone Website** là template dành cho các AI coding agent, giúp **phân tích và tái dựng một website thành mã nguồn Next.js** theo quy trình có cấu trúc thay vì chỉ “chụp lại giao diện”.
 
-> Click the image above to watch the full demo on YouTube.
+Điểm cốt lõi của dự án không nằm ở một crawler đơn lẻ. Giá trị chính nằm ở **workflow điều phối AI nhiều giai đoạn**, hướng agent thực hiện tuần tự:
 
-## Quick Start
+1. khảo sát website mục tiêu;
+2. đo đạc bố cục, typography, màu sắc, responsive và interaction;
+3. thu thập tài nguyên cần thiết;
+4. viết đặc tả component;
+5. dựng component độc lập;
+6. ghép toàn trang;
+7. kiểm tra trực quan và hiệu chỉnh sai khác.
 
-> **Important:** Start by making your own copy with GitHub's **Use this template** button. Do not clone this template repository directly for your website project, and do not open pull requests here with your generated website.
+Kết quả hướng tới một codebase có cấu trúc rõ ràng, có thể đọc, sửa, mở rộng và triển khai như một dự án Next.js thông thường.
 
-1. **Create your own repository from this template**
+> **Lưu ý:** Đây là công cụ hỗ trợ tái dựng giao diện và cấu trúc frontend. Nó không tự động chuyển toàn bộ backend, cơ sở dữ liệu, hệ thống tài khoản, API riêng, logic máy chủ hoặc quyền sở hữu trí tuệ của website mục tiêu.
 
-   On the GitHub page for this project, click **Use this template**, then click **Create a new repository**.
+---
 
-   Give your new repository a name, choose whether it should be public or private, then click **Create repository**. If GitHub shows an **Include all branches** option, you can leave it off.
+## ✨ Điểm nổi bật
 
-   This gives you your own separate project to work in, so your website changes stay in your account instead of coming back to the main template.
+| Khả năng | Ý nghĩa |
+|---|---|
+| 🧭 **Khảo sát có hệ thống** | Chụp ảnh tham chiếu, kiểm tra nhiều trạng thái, responsive, hover/click/scroll và bố cục thực tế. |
+| 🎨 **Trích xuất design token** | Thu thập màu sắc, font, khoảng cách, border, shadow, kích thước và các giá trị CSS quan trọng. |
+| 🧩 **Đặc tả theo component** | Tách giao diện thành các khối rõ ràng trước khi triển khai, giảm việc AI “đoán mò”. |
+| ⚡ **Xây dựng song song** | Có thể phân công nhiều agent/worktree xử lý các section hoặc component riêng biệt. |
+| 🔍 **Visual QA** | So sánh kết quả dựng với ảnh tham chiếu để phát hiện sai lệch và tinh chỉnh. |
+| 🧱 **Codebase hiện đại** | Next.js 16, React 19, TypeScript strict, Tailwind CSS v4, shadcn/ui. |
+| 🤖 **Đa nền tảng AI** | Hỗ trợ Claude Code, Codex, Cursor, Gemini CLI, Cline, Roo Code, Continue, Amazon Q và nhiều công cụ khác. |
 
-2. **Open your new repository on your computer**
+---
 
-   After GitHub creates your copy, open that new repository. Click **Code** and open or clone your new repository with your preferred coding tool.
+## 🎬 Demo tham chiếu
 
-   If you use the terminal, the command will look like this:
+[![Xem demo](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
 
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/YOUR-NEW-REPOSITORY.git
-   cd YOUR-NEW-REPOSITORY
-   ```
+*Nhấn vào hình để xem demo của dự án gốc.*
 
-3. **Install dependencies**
-   ```bash
-   npm install
-   ```
-4. **Start your AI agent** — Claude Code recommended:
-   ```bash
-   claude --chrome
-   ```
-5. **Run the skill**:
-   ```
-   /clone-website <target-url1> [<target-url2> ...]
-   ```
-6. **Customize** (optional) — after the base clone is built, modify as needed
+---
 
-> Most supported clients expose `/clone-website` directly. If your client activates skills from natural-language requests, enter `Clone <target-url> using the clone-website workflow`. Project instructions are in `AGENTS.md`.
+## 🚀 Bắt đầu nhanh
 
-## Supported Platforms
+### 1. Tạo repository riêng từ template
 
-| Agent                                                         | Status                     |
-| ------------------------------------------------------------- | -------------------------- |
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | **Recommended** — Opus 5   |
-| [Codex CLI](https://github.com/openai/codex)                  | Supported                  |
-| [OpenCode](https://opencode.ai/)                              | Supported                  |
-| [GitHub Copilot](https://github.com/features/copilot)         | Supported                  |
-| [Kiro](https://kiro.dev/)                                    | Supported                  |
-| [Cursor](https://cursor.com/)                                 | Supported                  |
-| [Windsurf](https://codeium.com/windsurf)                      | Supported                  |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli)     | Supported                  |
-| [Cline](https://github.com/cline/cline)                       | Supported                  |
-| [Roo Code](https://github.com/RooCodeInc/Roo-Code)            | Supported                  |
-| [Continue](https://continue.dev/)                             | Supported                  |
-| [Amazon Q](https://aws.amazon.com/q/developer/)               | Supported                  |
-| [Augment Code](https://www.augmentcode.com/)                  | Supported                  |
+Không nên phát triển website mới trực tiếp trên repo mẫu. Hãy nhấn **Use this template / Dùng mẫu này** và tạo một repository mới trong tài khoản của bạn.
 
-## Prerequisites
+### 2. Clone repository mới về máy
 
-- [Node.js](https://nodejs.org/) 24+
-- An AI coding agent (see [Supported Platforms](#supported-platforms))
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-NEW-REPOSITORY.git
+cd YOUR-NEW-REPOSITORY
+```
 
-## Tech Stack
+### 3. Cài dependency
 
-- **Next.js 16** — App Router, React 19, TypeScript strict
-- **shadcn/ui** — Radix primitives + Tailwind CSS v4
-- **Tailwind CSS v4** — oklch design tokens
-- **Lucide React** — default icons (replaced by extracted SVGs during cloning)
+```bash
+npm install
+```
 
-## How It Works
+### 4. Khởi động AI coding agent
 
-The `/clone-website` skill runs a multi-phase pipeline:
+Ví dụ với Claude Code:
+
+```bash
+claude --chrome
+```
+
+Bạn cũng có thể dùng Codex CLI, Cursor, Gemini CLI, Cline, Roo Code hoặc nền tảng được hỗ trợ khác.
+
+### 5. Chạy workflow tái dựng
+
+```text
+/clone-website <url-mục-tiêu-1> [<url-mục-tiêu-2> ...]
+```
+
+Ví dụ:
+
+```text
+/clone-website https://example.com
+```
+
+Nếu client không hỗ trợ slash command trực tiếp, có thể yêu cầu bằng ngôn ngữ tự nhiên:
+
+```text
+Clone https://example.com using the clone-website workflow
+```
+
+### 6. Kiểm thử và tùy biến
+
+Sau khi dựng xong:
+
+```bash
+npm run check
+```
+
+Tiếp tục kiểm tra responsive, accessibility, đường dẫn asset, nội dung, animation, SEO và các interaction quan trọng trước khi triển khai.
+
+---
+
+## 🧰 Yêu cầu hệ thống
+
+- **Node.js 24+**
+- Một AI coding agent tương thích
+- Git
+- Trình duyệt hiện đại để khảo sát website mục tiêu
+- Quyền hợp pháp để truy cập, phân tích và tái sử dụng tài nguyên cần thiết
+
+---
+
+## 🤖 Nền tảng AI được hỗ trợ
+
+| Agent | Trạng thái |
+|---|---|
+| Claude Code | ✅ Khuyến nghị |
+| Codex CLI | ✅ Hỗ trợ |
+| OpenCode | ✅ Hỗ trợ |
+| GitHub Copilot | ✅ Hỗ trợ |
+| Kiro | ✅ Hỗ trợ |
+| Cursor | ✅ Hỗ trợ |
+| Windsurf | ✅ Hỗ trợ |
+| Gemini CLI | ✅ Hỗ trợ |
+| Cline | ✅ Hỗ trợ |
+| Roo Code | ✅ Hỗ trợ |
+| Continue | ✅ Hỗ trợ |
+| Amazon Q | ✅ Hỗ trợ |
+| Augment Code | ✅ Hỗ trợ |
+
+Các bản skill/command tương ứng được đồng bộ từ nguồn cấu hình chung để giảm chênh lệch giữa nhiều agent.
+
+---
+
+## 🧱 Công nghệ sử dụng
+
+| Thành phần | Công nghệ |
+|---|---|
+| Framework | **Next.js 16** – App Router |
+| UI runtime | **React 19** |
+| Ngôn ngữ | **TypeScript strict** |
+| UI primitives | **shadcn/ui + Radix UI** |
+| CSS | **Tailwind CSS v4** |
+| Design token | **oklch** |
+| Icon mặc định | **Lucide React** |
+| Triển khai phù hợp | Vercel / Node.js / Docker |
+
+---
+
+## 🧠 Nguyên lý hoạt động
+
+ViClone không “copy HTML rồi dán lại”. Workflow ưu tiên **reverse engineering giao diện theo quan sát thực tế**.
 
 ```mermaid
 flowchart LR
-    P1["1. Reconnaissance"] --> P2["2. Foundation"]
-    P2 --> P3["3. Component Specs"]
-    P3 --> P4["4. Parallel Build"]
-    P4 --> P5["5. Assembly and QA"]
+    A["1. Khảo sát"] --> B["2. Dựng nền tảng"]
+    B --> C["3. Đặc tả component"]
+    C --> D["4. Xây dựng song song"]
+    D --> E["5. Ghép trang & QA"]
 ```
 
-1. **Reconnaissance** — screenshots, design token extraction, interaction sweep (scroll, click, hover, responsive)
-2. **Foundation** — updates fonts, colors, globals, downloads all assets
-3. **Component Specs** — writes detailed spec files (`docs/research/components/`) with exact computed CSS values, states, behaviors, and content
-4. **Parallel Build** — dispatches builder agents in git worktrees, one per section/component
-5. **Assembly & QA** — merges worktrees, wires up the page, runs visual diff against the original
+### 1. Khảo sát — Reconnaissance
 
-Each builder agent receives the full component specification inline — exact `getComputedStyle()` values, interaction models, multi-state content, responsive breakpoints, and asset paths. No guessing.
+Agent mở website mục tiêu và thu thập thông tin:
 
-## Use Cases
+- ảnh chụp màn hình;
+- kích thước/position thực tế;
+- màu, font, spacing, radius, shadow;
+- trạng thái hover/focus/active;
+- nội dung thay đổi theo viewport;
+- menu, tab, carousel, modal và các interaction;
+- asset hình ảnh, SVG, video và SEO liên quan.
 
-- **Platform migration** — rebuild a site you own from WordPress/Webflow/Squarespace into a modern Next.js codebase
-- **Lost source code** — your site is live but the repo is gone, the developer left, or the stack is legacy. Get the code back in a modern format
-- **Learning** — deconstruct how production sites achieve specific layouts, animations, and responsive behavior by working with real code
+### 2. Dựng nền tảng — Foundation
 
-## Not Intended For
+Thiết lập phần dùng chung của ứng dụng:
 
-- **Phishing or impersonation** — this project must not be used for deceptive purposes, impersonation, or any activity that breaks the law.
-- **Passing off someone's design as your own** — logos, brand assets, and original copy belong to their owners.
-- **Violating terms of service** — some sites explicitly prohibit scraping or reproduction. Check first.
+- font;
+- global CSS;
+- design token;
+- asset;
+- layout;
+- cấu trúc thư mục và primitive UI.
 
-## Project Structure
+### 3. Đặc tả component — Component Specifications
 
+Trước khi code, workflow ghi lại đặc tả chi tiết cho từng khối. Đây là bước quan trọng giúp agent khác có đủ ngữ cảnh để dựng chính xác mà không phải suy đoán lại từ đầu.
+
+### 4. Xây dựng song song — Parallel Build
+
+Các component/section có thể được phân cho nhiều agent hoặc worktree độc lập. Cách này tăng tốc khi website lớn nhưng vẫn giữ phạm vi thay đổi rõ ràng.
+
+### 5. Ghép trang và kiểm định — Assembly & QA
+
+Sau khi hoàn thiện component:
+
+- ghép vào layout chung;
+- sửa conflict;
+- chạy lint/typecheck/build;
+- so sánh ảnh kết quả với bản tham chiếu;
+- tinh chỉnh các sai lệch về pixel, typography, spacing và responsive.
+
+---
+
+## 🏗️ Kiến trúc workflow
+
+```text
+URL mục tiêu
+    │
+    ▼
+AI Coding Agent
+    │
+    ├── Khảo sát trình duyệt
+    ├── Ảnh tham chiếu
+    ├── CSS / design token
+    ├── Asset / SVG / media
+    └── Interaction model
+    │
+    ▼
+docs/research/
+Đặc tả kỹ thuật theo component
+    │
+    ▼
+Builder agents / worktrees
+    │
+    ▼
+src/app + src/components + public/
+    │
+    ▼
+Lint + Typecheck + Build + Visual QA
 ```
+
+Bản chất của kiến trúc này là tách **quan sát → đặc tả → triển khai → kiểm định** thành các pha riêng. Điều đó làm giảm lỗi do AI tự suy diễn và giúp quá trình tái dựng có thể kiểm tra, lặp lại và bảo trì tốt hơn.
+
+---
+
+## 📂 Cấu trúc dự án
+
+```text
 src/
-  app/              # Next.js routes
-  components/       # React components
-    ui/             # shadcn/ui primitives
-    icons.tsx       # Extracted SVG icons
-  lib/utils.ts      # cn() utility
-  types/            # TypeScript interfaces
-  hooks/            # Custom React hooks
+  app/                # Route và layout Next.js
+  components/         # React component
+    ui/               # shadcn/ui primitives
+  lib/                # Hàm tiện ích
+  types/              # Kiểu TypeScript
+  hooks/              # React hooks
+
 public/
-  images/           # Downloaded images from target
-  videos/           # Downloaded videos from target
-  seo/              # Favicons, OG images
+  images/             # Hình ảnh lấy từ website mục tiêu
+  videos/             # Video/tài nguyên media
+  seo/                # Favicon, OG image, metadata asset
+
 docs/
-  research/         # Extraction output & component specs
-  design-references/ # Screenshots
+  research/           # Kết quả khảo sát và đặc tả component
+  design-references/  # Ảnh tham chiếu / visual diff
+
 scripts/
-  sync-agent-rules.sh  # Regenerate agent instruction files
-  sync-skills.mjs      # Regenerate /clone-website for all platforms
-.kiro/skills/          # Generated Kiro workspace skill
-.cline/skills/         # Generated Cline workspace skill
-.roo/skills/           # Generated Roo Code workspace skill
-.roo/commands/         # Generated Roo Code slash command
-AGENTS.md           # Agent instructions (single source of truth)
-CLAUDE.md           # Claude Code config (imports AGENTS.md)
-GEMINI.md           # Gemini CLI config (imports AGENTS.md)
+  sync-agent-rules.sh # Đồng bộ hướng dẫn cho các agent
+  sync-skills.mjs     # Đồng bộ skill /clone-website
+
+AGENTS.md             # Nguồn hướng dẫn agent chính
+.claude/skills/...    # Skill nguồn cho Claude Code
 ```
 
-## Commands
+---
+
+## ⌨️ Lệnh phát triển
 
 ```bash
-npm run dev    # Start dev server
-npm run build  # Production build
-npm run lint   # ESLint check
-npm run typecheck # TypeScript check
-npm run check  # Run lint + typecheck + build
+npm run dev        # Chạy môi trường phát triển
+npm run build      # Build production
+npm run lint       # Kiểm tra ESLint
+npm run typecheck  # Kiểm tra TypeScript
+npm run check      # lint + typecheck + build
 ```
 
-### If using docker
+### Docker
 
 ```bash
-docker compose up app --build # build and run the app
-docker compose up dev --build # run the app in dev mode on port 3001
+docker compose up app --build
 ```
 
-## Updating for Other Platforms
+Chế độ phát triển:
 
-Two source-of-truth files power all platform support. Edit the source, then run the sync script:
+```bash
+docker compose up dev --build
+```
 
-| What                   | Source of truth                         | Sync command                       |
-| ---------------------- | --------------------------------------- | ---------------------------------- |
-| Project instructions   | `AGENTS.md`                             | `bash scripts/sync-agent-rules.sh` |
-| `/clone-website` skill | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs`     |
+---
 
-Each script regenerates the platform-specific copies automatically. Agents that read the source files natively need no regeneration.
+## 🔄 Đồng bộ cấu hình cho nhiều AI agent
 
+Dự án dùng các file nguồn làm **single source of truth** rồi sinh bản tương ứng cho từng nền tảng.
 
-## Star History
+| Nội dung | File nguồn | Lệnh đồng bộ |
+|---|---|---|
+| Hướng dẫn agent | `AGENTS.md` | `bash scripts/sync-agent-rules.sh` |
+| Skill `/clone-website` | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs` |
 
-![Star History Chart](docs/assets/star-history.png)
+Điều này giúp tránh việc sửa riêng từng bản dành cho Cursor, Cline, Roo, Gemini, Amazon Q… rồi dẫn đến sai lệch workflow.
 
-## License
+---
 
-MIT
+## 💡 Trường hợp sử dụng phù hợp
 
-<sub>Translations: <a href="README.ja.md">日本語</a> · <a href="README.zh-CN.md">Simplified Chinese</a></sub>
+- 🔁 **Di chuyển nền tảng:** chuyển frontend của website bạn sở hữu từ WordPress/Webflow/Squarespace sang Next.js.
+- 🧯 **Khôi phục frontend:** website vẫn hoạt động nhưng mã nguồn cũ bị thất lạc hoặc stack đã lỗi thời.
+- 🎓 **Học frontend:** phân tích cách website thực tế xử lý layout, responsive, animation và component.
+- 🧪 **Prototype:** tái dựng nhanh một giao diện tham chiếu để nghiên cứu UX/UI trước khi thiết kế lại.
+- 🗂️ **Lưu trữ nội bộ:** tái dựng các giao diện thuộc quyền quản lý để phục vụ bảo tồn, chuyển đổi hoặc hiện đại hóa hệ thống.
+
+---
+
+## ⚠️ Giới hạn
+
+ViClone **không đảm bảo** tự động khôi phục được:
+
+- backend riêng;
+- cơ sở dữ liệu;
+- API private;
+- authentication/authorization;
+- logic server-side không lộ ra phía client;
+- hệ thống thanh toán;
+- nội dung bị giới hạn quyền;
+- tài nguyên có DRM hoặc cơ chế chống sao chép;
+- toàn bộ hành vi của ứng dụng phức tạp chỉ từ một lần quét.
+
+Độ chính xác phụ thuộc vào website, quyền truy cập, khả năng browser automation và chất lượng model/agent đang sử dụng.
+
+---
+
+## 🛡️ Sử dụng có trách nhiệm
+
+Dự án này phục vụ **phát triển phần mềm, nghiên cứu, migration, phục hồi hệ thống và học tập hợp pháp**.
+
+Không sử dụng để:
+
+- giả mạo website/tổ chức/cá nhân;
+- tạo trang phishing hoặc thu thập thông tin đăng nhập;
+- đánh cắp thương hiệu, logo, nội dung hoặc tài sản có bản quyền;
+- vượt qua cơ chế truy cập trái phép;
+- vi phạm điều khoản dịch vụ hoặc pháp luật áp dụng.
+
+Trước khi tái dựng một website, hãy kiểm tra quyền sở hữu, giấy phép, điều khoản sử dụng, robots policy và quyền đối với nội dung/tài nguyên liên quan.
+
+---
+
+## 🌏 Ngôn ngữ
+
+- 🇻🇳 **Tiếng Việt:** `README.md`
+- 🇬🇧 English: [`README.en.md`](README.en.md)
+- 🇯🇵 日本語: [`README.ja.md`](README.ja.md)
+- 🇨🇳 简体中文: [`README.zh-CN.md`](README.zh-CN.md)
+
+---
+
+## 🙏 Ghi công dự án gốc
+
+ViClone Website được Việt hóa và tổ chức lại tài liệu dựa trên:
+
+**[JCodesMore/ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)**
+
+Giấy phép gốc: **MIT License**. Thông tin bản quyền được giữ nguyên trong [`LICENSE`](LICENSE).
+
+---
+
+## 📜 Giấy phép
+
+Phân phối theo **MIT License**. Xem đầy đủ tại [`LICENSE`](LICENSE).
+
+> Khi tái sử dụng mã nguồn, cần giữ lại thông báo bản quyền và điều khoản MIT theo nội dung giấy phép.
