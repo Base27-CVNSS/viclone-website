@@ -1,54 +1,92 @@
-# Contributing
+# 🤝 Đóng góp cho ViClone Website
 
-Thanks for your interest in improving the **AI Website Cloner Template**! This guide covers how to contribute to the template itself.
+Cảm ơn bạn quan tâm đến việc cải thiện **ViClone Website**. Đây là bản Việt hóa và tổ chức lại tài liệu dựa trên dự án gốc **AI Website Cloner Template**, vì vậy mọi đóng góp nên ưu tiên tính ổn định của workflow, khả năng tương thích với nhiều AI coding agent và chất lượng tài liệu.
 
-> **Note:** This repository is a *template*. If you just want to clone a website, don't open a PR here — click **Use this template** to make your own copy and work there (see the [README](README.md#quick-start)). Pull requests should improve the template: the `/clone-website` skill, agent platform support, the scaffold, or the docs.
+> **Lưu ý quan trọng:** repository này là một **template**. Nếu mục tiêu của bạn chỉ là tái dựng một website cụ thể, hãy dùng **Use this template** để tạo repository riêng rồi làm việc trong bản sao đó. Pull request gửi về đây nên nhằm cải thiện chính template, skill `/clone-website`, cấu hình agent, scaffold Next.js hoặc tài liệu.
 
-## Ways to contribute
+## 🧭 Có thể đóng góp những gì?
 
-- **Improve the `/clone-website` skill** — sharper extraction, better prompts, new behaviors to detect
-- **Add or fix agent platform support** — new coding agents, or fixes to existing generated configs
-- **Fix bugs** in the Next.js scaffold or the sync scripts
-- **Improve documentation** — the README, `AGENTS.md`, or the inspection guides under `docs/research/`
+- **Cải thiện skill `/clone-website`** — tăng độ chính xác khi khảo sát, trích xuất CSS, asset, responsive hoặc interaction.
+- **Bổ sung/hỗ trợ AI coding agent** — thêm nền tảng mới hoặc sửa cấu hình đã sinh cho agent hiện có.
+- **Sửa lỗi scaffold Next.js** — build, lint, typecheck, cấu trúc component hoặc dependency.
+- **Cải thiện script đồng bộ** — các script trong `scripts/` dùng để sinh cấu hình cho nhiều nền tảng.
+- **Cải thiện tài liệu** — README, hướng dẫn khảo sát, tài liệu kiến trúc hoặc bản dịch tiếng Việt.
+- **Tăng tính an toàn** — ngăn workflow tạo ra hành vi nguy hiểm, sai quyền hoặc vi phạm nguyên tắc sử dụng có trách nhiệm.
 
-Browse the [open issues](https://github.com/JCodesMore/ai-website-cloner-template/issues) for something to pick up. For substantial or potentially breaking changes, consider opening an issue first so we can align on the approach before significant work begins.
+## 🛠️ Thiết lập môi trường phát triển
 
-## Development setup
+### Yêu cầu
 
-**Prerequisites:** [Node.js](https://nodejs.org/) 24+.
+- Node.js 24+
+- Git
+- npm
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/ai-website-cloner-template.git
-cd ai-website-cloner-template
+git clone https://github.com/YOUR-USERNAME/viclone-website.git
+cd viclone-website
 npm ci
 ```
 
-Before opening a PR, make sure the project is green:
+Trước khi gửi pull request, hãy kiểm tra toàn bộ dự án:
 
 ```bash
-npm run check   # lint + typecheck + build
+npm run check
 ```
 
-## Source-of-truth files & the sync scripts
+Lệnh trên thực hiện:
 
-This is the most important thing to know. Two source files generate the platform-specific project instructions and `/clone-website` skill copies. Edit the source files rather than their generated copies.
+```text
+ESLint → TypeScript typecheck → Production build
+```
 
-| What                   | Edit this (source of truth)             | Then run                           |
-| ---------------------- | --------------------------------------- | ---------------------------------- |
-| Project instructions   | `AGENTS.md`                             | `bash scripts/sync-agent-rules.sh` |
-| `/clone-website` skill | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs`     |
+## 🔄 File nguồn và script đồng bộ
 
-After editing a source file, run the matching sync command and commit the regenerated files along with your change. CI verifies that the generated files are in sync — if you forget to regenerate, CI will fail with a reminder.
+Đây là phần quan trọng nhất khi sửa workflow cho AI agent. Một số file là **single source of truth** và được dùng để sinh ra bản tương ứng cho nhiều nền tảng.
 
-## Submitting a pull request
+| Nội dung | File cần sửa | Lệnh đồng bộ |
+|---|---|---|
+| Hướng dẫn dự án cho agent | `AGENTS.md` | `bash scripts/sync-agent-rules.sh` |
+| Skill `/clone-website` | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs` |
 
-1. **Fork** the repo and create a branch off `master` (e.g. `fix/skill-hover-extraction` or `docs/clarify-setup`).
-2. Make your change. If you touched a source-of-truth file, **run the relevant sync script** (see above).
-3. Run `npm run check` and make sure it passes.
-4. Write a clear commit message that describes the change. Prefixes such as `fix:`, `feat:`, or `docs:` are welcome but not required.
-5. Open a PR against `master`, fill out the PR template, and link a relevant issue when one exists (for example, `Closes #123`).
-6. Keep PRs focused — one logical change per PR is much easier to review and merge.
+Nếu sửa file nguồn nhưng không chạy script đồng bộ, CI có thể thất bại vì các bản sinh tự động không còn khớp nhau.
 
-## Questions
+## 🌿 Quy trình gửi Pull Request
 
-Ask in the [Discord community](https://discord.gg/hrTSX5yTpB) — happy to help you get started.
+1. Fork repository và tạo branch mới từ `master`.
+2. Đặt tên branch ngắn gọn, ví dụ `fix/asset-extraction` hoặc `docs/vietnamese-guide`.
+3. Thực hiện thay đổi trong phạm vi rõ ràng.
+4. Nếu chạm vào file nguồn của agent/skill, chạy script đồng bộ tương ứng.
+5. Chạy `npm run check` và xử lý mọi lỗi trước khi commit.
+6. Viết commit message rõ ràng. Có thể dùng Conventional Commits như `fix:`, `feat:`, `docs:`, `refactor:`.
+7. Mở pull request vào `master`, mô tả vấn đề, cách xử lý và cách đã kiểm thử.
+8. Nếu có issue liên quan, liên kết bằng cú pháp như `Closes #123`.
+
+## ✅ Nguyên tắc chất lượng
+
+Pull request nên:
+
+- tập trung vào một thay đổi logic chính;
+- không đưa secret, token, cookie hoặc dữ liệu cá nhân vào repository;
+- không làm giảm độ tương thích với các AI agent đang hỗ trợ;
+- không thay đổi hành vi lõi chỉ vì sở thích thẩm mỹ cá nhân;
+- giữ TypeScript strict và vượt qua `npm run check`;
+- ghi rõ nếu thay đổi có ảnh hưởng đến workflow `/clone-website`.
+
+## 🌏 Chính sách bản địa hóa
+
+Tài liệu dành cho người dùng của fork này ưu tiên **tiếng Việt rõ ràng, chuẩn kỹ thuật và dễ thực hành**. Tuy nhiên, các prompt/skill nội bộ có thể tiếp tục sử dụng tiếng Anh khi điều đó giúp duy trì khả năng tương thích và chất lượng thực thi của AI coding agent.
+
+Không nên dịch tùy tiện:
+
+- tên command như `/clone-website`;
+- tên file, API, package và option kỹ thuật;
+- cú pháp CLI;
+- key cấu hình mà tool/agent phụ thuộc trực tiếp.
+
+## 🧾 Bản quyền và dự án gốc
+
+ViClone Website dựa trên [JCodesMore/ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template) và tiếp tục tuân thủ MIT License. Khi đóng góp, bạn đồng ý rằng phần mã/tài liệu gửi vào repository có thể được phân phối theo giấy phép hiện hành của dự án.
+
+## 💬 Trao đổi
+
+Đối với thay đổi lớn hoặc có khả năng phá vỡ tương thích, nên mở issue trước để thảo luận phạm vi và hướng triển khai. Với vấn đề bảo mật, **không đăng chi tiết lỗ hổng trong issue công khai**; hãy làm theo [`SECURITY.md`](SECURITY.md).
