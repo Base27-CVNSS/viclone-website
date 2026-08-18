@@ -1,50 +1,52 @@
-name: Feature Request
-description: Suggest a new feature or improvement
-title: "[Feature]: "
+name: Đề xuất tính năng
+description: Đề xuất tính năng mới hoặc cải tiến cho ViClone Website
+title: "[Tính năng]: "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting a feature! Please describe the problem and your proposed solution.
+        Cảm ơn bạn đã đề xuất cải tiến. Hãy mô tả vấn đề thực tế trước, sau đó trình bày giải pháp bạn mong muốn.
 
   - type: textarea
     id: problem
     attributes:
-      label: Problem
-      description: What problem does this feature solve? What's missing or frustrating?
-      placeholder: "I'm always frustrated when..."
+      label: Vấn đề cần giải quyết
+      description: Tính năng này giải quyết khó khăn nào? Điều gì hiện còn thiếu hoặc gây bất tiện?
+      placeholder: "Tôi thường gặp khó khăn khi..."
     validations:
       required: true
 
   - type: textarea
     id: solution
     attributes:
-      label: Proposed Solution
-      description: How would you like this to work?
+      label: Giải pháp đề xuất
+      description: Bạn muốn tính năng hoạt động như thế nào?
     validations:
       required: true
 
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives Considered
-      description: Any other approaches you've thought about?
+      label: Phương án khác đã cân nhắc
+      description: Bạn đã thử hoặc nghĩ đến cách tiếp cận nào khác?
 
   - type: dropdown
     id: category
     attributes:
-      label: Category
+      label: Nhóm tính năng
       options:
-        - Cloning pipeline
-        - Asset extraction
-        - Component generation
-        - Documentation
-        - Developer experience
-        - Other
+        - Quy trình tái dựng website
+        - Trích xuất asset và design token
+        - Sinh component
+        - Visual QA và kiểm thử
+        - Tài liệu
+        - Trải nghiệm lập trình viên
+        - Hỗ trợ AI coding agent
+        - Khác
 
   - type: textarea
     id: additional
     attributes:
-      label: Additional Context
-      description: Screenshots, mockups, links, or any other context.
+      label: Thông tin bổ sung
+      description: Ảnh chụp, mockup, link tham chiếu hoặc ngữ cảnh liên quan. Không gửi secret, token, cookie hoặc dữ liệu riêng tư.
